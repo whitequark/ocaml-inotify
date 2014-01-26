@@ -1,0 +1,5 @@
+*.cm{i,o,x}
+*.native
+_build
+setup.{data,log}
+test/test-inotify

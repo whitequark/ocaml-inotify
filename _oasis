@@ -1,0 +1,17 @@
+OASISFormat  : 0.3
+Name         : inotify
+Version      : 1.2
+Synopsis     : Inotify bindings for ocaml
+Authors      : Vincent Hanquez
+License      : LGPL-2.1 with OCaml linking exception
+Plugins      : META (0.3)
+BuildTools   : ocamlbuild
+BuildDepends : unix
+Maintainers  : Sean McLaughlin <seanmcl@gmail.com>
+Description  : Inotify bindings for ocaml
+Homepage     : http://bitbucket.org/seanmcl/ocaml-inotify
+
+Library "inotify"
+  Path:       lib
+  Modules:    Inotify
+  CSources:   inotify_stubs.c,inotify_stubs.h
