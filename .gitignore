@@ -1,5 +1,6 @@
 *.cm{i,o,x}
 *.native
 _build
-setup.{data,log}
+setup.log
+setup.data
 test/test-inotify
