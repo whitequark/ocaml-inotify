@@ -1,4 +1,4 @@
-*.cm{i,o,x}
+*.cm{i,o,x,t}
 *.native
 _build
 setup.log
