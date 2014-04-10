@@ -1,7 +1,7 @@
 # OASIS_START
-# DO NOT EDIT (digest: 201eb2a9493090a8a3235f4aa18cd4e7)
-# Ignore VCS directories, you can use the same kind of rule outside 
-# OASIS_START/STOP if you want to exclude directories that contains 
+# DO NOT EDIT (digest: ddc5997094e7defd93dc19489fab2014)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
@@ -16,6 +16,10 @@
 # Library inotify
 "lib/inotify.cmxs": use_inotify
 <lib/inotify.{cma,cmxa}>: use_libinotify_stubs
-<lib/*.ml{,i}>: pkg_unix
 "lib/inotify_stubs.c": pkg_unix
+# Library inotify-lwt
+"lib/inotify-lwt.cmxs": use_inotify-lwt
+<lib/*.ml{,i}>: pkg_lwt
+<lib/*.ml{,i}>: pkg_unix
+<lib/*.ml{,i}>: use_inotify
 # OASIS_STOP

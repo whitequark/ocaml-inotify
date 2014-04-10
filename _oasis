@@ -11,7 +11,20 @@ Maintainers  : Sean McLaughlin <seanmcl@gmail.com>
 Description  : Inotify bindings for ocaml
 Homepage     : http://bitbucket.org/seanmcl/ocaml-inotify
 
+Flag lwt
+  Description:      Build the Lwt wrapper
+  Default:          false
+
 Library "inotify"
-  Path:       lib
-  Modules:    Inotify
-  CSources:   inotify_stubs.c,inotify_stubs.h
+  Path:             lib
+  Modules:          Inotify
+  CSources:         inotify_stubs.c,inotify_stubs.h
+
+Library "inotify-lwt"
+  Build$:           flag(lwt)
+  Install$:         flag(lwt)
+  FindlibName:      lwt
+  FindlibParent:    inotify
+  Path:             lib
+  Modules:          Lwt_inotify
+  BuildDepends:     inotify, lwt
