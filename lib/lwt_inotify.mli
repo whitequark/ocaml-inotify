@@ -16,5 +16,8 @@ val rm_watch  : t -> Inotify.wd -> unit
 (** [read id] waits for an event to occur at [id]. *)
 val read      : t -> Inotify.event Lwt.t
 
+(** [try_read id] returns [Some event] if [id] has one queued, or [None]. *)
+val try_read  : t -> Inotify.event option Lwt.t
+
 (** [close id] frees [id]. *)
 val close     : t -> unit Lwt.t

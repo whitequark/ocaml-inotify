@@ -24,9 +24,9 @@ let test_s_move tmpdir =
     ()
   | _ -> assert_failure "move"
 
-let tests = "Test ocaml-inotify" >::: [
-    "Test S_Create" >:: bracket Helper.setup test_s_create Helper.teardown;
-    "Test S_Move"   >:: bracket Helper.setup test_s_move Helper.teardown
+let tests = "Test Inotify" >::: [
+    "Test S_Create watch" >:: bracket Helper.setup test_s_create Helper.teardown;
+    "Test S_Move watch"   >:: bracket Helper.setup test_s_move Helper.teardown
   ]
 
 let _ =

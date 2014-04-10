@@ -27,5 +27,13 @@ let rec read inotify =
     List.iter (fun event -> Queue.push event inotify.queue) events;
     read inotify
 
+let rec try_read inotify =
+  try
+    return (Some (Queue.take inotify.queue))
+  with Queue.Empty ->
+    if Lwt_unix.readable inotify.lwt_fd
+    then read inotify >|= fun x -> Some x
+    else return_none
+
 let close inotify =
   Lwt_unix.close inotify.lwt_fd
