@@ -24,9 +24,26 @@ let test_s_move tmpdir =
     ()
   | _ -> assert_failure "move"
 
+(* Test that error handling works *)
+let test_error tmpdir =
+  let inotify = Inotify.init () in
+  assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", ""))
+                (fun () -> Inotify.add_watch inotify tmpdir [])
+
+(* Test that nonblocking polling works *)
+let test_nonblock tmpdir =
+  let inotify = Inotify.init () in
+  Unix.set_nonblock inotify;
+
+  let _ = Inotify.add_watch inotify tmpdir [Inotify.S_Create] in
+  assert_raises (Unix.Unix_error (Unix.EAGAIN, "read", ""))
+                (fun () -> Inotify.read inotify)
+
 let tests = "Test Inotify" >::: [
-    "Test S_Create watch" >:: bracket Helper.setup test_s_create Helper.teardown;
-    "Test S_Move watch"   >:: bracket Helper.setup test_s_move Helper.teardown
+    "Test S_Create watch"   >:: bracket Helper.setup test_s_create Helper.teardown;
+    "Test S_Move watch"     >:: bracket Helper.setup test_s_move Helper.teardown;
+    "Test error handling"   >:: bracket Helper.setup test_error Helper.teardown;
+    "Test nonblocking mode" >:: bracket Helper.setup test_nonblock Helper.teardown;
   ]
 
 let _ =

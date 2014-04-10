@@ -26,6 +26,7 @@
 #include <caml/fail.h>
 #include <caml/signals.h>
 #include <caml/callback.h>
+#include <caml/unixsupport.h>
 
 #ifndef __APPLE__
 #if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 4
@@ -56,129 +57,109 @@ static int inotify_return_table[] = {
   IN_IGNORED, IN_ISDIR, IN_Q_OVERFLOW, IN_UNMOUNT, 0
 };
 
-static void raise_inotify_error(char const *msg) {
-  static value *inotify_err = NULL;
-  value args[2];
-
-  if (!inotify_err)
-    inotify_err = caml_named_value("inotify.error");
-  args[0] = caml_copy_string(msg);
-  args[1] = Val_int(errno);
-
-  caml_raise_with_args(*inotify_err, 2, args);
-}
-
-value stub_inotify_init(value unit) {
+value caml_inotify_init(value unit) {
   CAMLparam1(unit);
-  int fd;
 
-  fd = inotify_init();
+  int fd = inotify_init();
+  if (fd == -1) uerror("inotify_init", Nothing);
+
   CAMLreturn(Val_int(fd));
 }
 
-value stub_inotify_ioctl_fionread(value fd) {
+value caml_inotify_ioctl_fionread(value fd) {
   CAMLparam1(fd);
-  int rc, bytes;
 
-  rc = ioctl(Int_val(fd), FIONREAD, &bytes);
-  if (rc == -1)
-    raise_inotify_error("ioctl fionread");
+  int bytes;
+  int ret = ioctl(Int_val(fd), FIONREAD, &bytes);
+  if (ret == -1) uerror("ioctl(FIONREAD)", Nothing);
 
   CAMLreturn(Val_int(bytes));
 }
 
-value stub_inotify_add_watch(value fd, value path, value mask) {
-  CAMLparam3(fd, path, mask);
-  int cv_mask, wd;
+value caml_inotify_add_watch(value fd, value path, value selector_flags) {
+  CAMLparam3(fd, path, selector_flags);
 
-  cv_mask = caml_convert_flag_list(mask, inotify_flag_table);
-  wd = inotify_add_watch(Int_val(fd), String_val(path), cv_mask);
-  if (wd < 0)
-    raise_inotify_error("add_watch");
-  CAMLreturn(Val_int(wd));
+  int selector = caml_convert_flag_list(selector_flags, inotify_flag_table);
+
+  int watch = inotify_add_watch(Int_val(fd), String_val(path), selector);
+  if (watch == -1) uerror("inotify_add_watch", Nothing);
+
+  CAMLreturn(Val_int(watch));
 }
 
-value stub_inotify_rm_watch(value fd, value wd) {
-  CAMLparam2(fd, wd);
-  int ret;
+value caml_inotify_rm_watch(value fd, value watch) {
+  CAMLparam2(fd, watch);
 
-  ret = inotify_rm_watch(Int_val(fd), Int_val(wd));
-  if (ret == -1)
-    raise_inotify_error("rm_watch");
+  int ret = inotify_rm_watch(Int_val(fd), Int_val(watch));
+  if (ret == -1) uerror("inotify_rm_watch", Nothing);
+
   CAMLreturn(Val_unit);
 }
 
-value stub_inotify_struct_size(void) {
+value caml_inotify_struct_size(void) {
   CAMLparam0();
   CAMLreturn(Val_int(sizeof(struct inotify_event)));
 }
 
-value stub_inotify_convert(value buf) {
+value caml_inotify_convert(value buf) {
   CAMLparam1(buf);
-  CAMLlocal3(event, l, tmpl);
-  struct inotify_event ev;
-  int i;
+  CAMLlocal3(event, list, next);
 
-  l = Val_emptylist;
-  tmpl = Val_emptylist;
+  list = next = Val_emptylist;
 
-  memcpy(&ev, String_val(buf), sizeof(struct inotify_event));
+  struct inotify_event ievent;
+  memcpy(&ievent, String_val(buf), sizeof(struct inotify_event));
 
-  for (i = 0; inotify_return_table[i]; i++) {
-    if (!(ev.mask & inotify_return_table[i]))
+  int flag;
+  for (flag = 0; inotify_return_table[flag]; flag++) {
+    if (!(ievent.mask & inotify_return_table[flag]))
       continue;
-    tmpl = caml_alloc_small(2, Tag_cons);
-    Field(tmpl, 0) = Val_int(i);
-    Field(tmpl, 1) = l;
-    l = tmpl;
+
+    next = caml_alloc_small(2, Tag_cons);
+    Field(next, 0) = Val_int(flag);
+    Field(next, 1) = list;
+    list = next;
   }
 
   event = caml_alloc_tuple(4);
-  Store_field(event, 0, Val_int(ev.wd));
-  Store_field(event, 1, l);
-  Store_field(event, 2, caml_copy_int32(ev.cookie));
-  Store_field(event, 3, Val_int(ev.len));
+  Store_field(event, 0, Val_int(ievent.wd));
+  Store_field(event, 1, list);
+  Store_field(event, 2, caml_copy_int32(ievent.cookie));
+  Store_field(event, 3, Val_int(ievent.len));
 
   CAMLreturn(event);
 }
 
 #else  /* !__APPLE__ */
 
-
-value stub_inotify_init(value unit) {
+value caml_inotify_init(value unit) {
   CAMLparam1(unit);
-  CAMLreturn(Val_int(-1));
+  unix_error(ENOTSUP, "inotify_init", Nothing);
 }
 
-value stub_inotify_ioctl_fionread(value fd) {
+value caml_inotify_ioctl_fionread(value fd) {
   CAMLparam1(fd);
-  CAMLreturn(Val_int(-1));
+  unix_error(ENOTSUP, "ioctl(FIONREAD)", Nothing);
 }
 
-value stub_inotify_add_watch(value fd, value path, value mask) {
+value caml_inotify_add_watch(value fd, value path, value mask) {
   CAMLparam3(fd, path, mask);
-  CAMLreturn(Val_int(-1));
+  unix_error(ENOTSUP, "inotify_add_watch", Nothing);
 }
 
-value stub_inotify_rm_watch(value fd, value wd) {
+value caml_inotify_rm_watch(value fd, value wd) {
   CAMLparam2(fd, wd);
-  CAMLreturn(Val_unit);
+  unix_error(ENOTSUP, "inotify_rm_watch", Nothing);
 }
 
-value stub_inotify_struct_size(void) {
+value caml_inotify_struct_size(void) {
   CAMLparam0();
-  CAMLreturn(Val_int(-1));
+  abort(); /* unreachable */
 }
 
-value stub_inotify_convert(value buf) {
+value caml_inotify_convert(value buf) {
   CAMLparam1(buf);
-  CAMLlocal1(event);
-  event = caml_alloc_tuple(4);
-  Store_field(event, 0, Val_int(-1));
-  Store_field(event, 1, Val_int(-1));
-  Store_field(event, 2, Val_int(-1));
-  Store_field(event, 3, Val_int(-1));
-  CAMLreturn(event);
+  abort(); /* unreachable */
 }
 
 #endif /* !__APPLE__ */

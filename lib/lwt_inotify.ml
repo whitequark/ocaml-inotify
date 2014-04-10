@@ -7,24 +7,31 @@ type t = {
 }
 
 let create () =
-  let unix_fd = Inotify.init () in
-  { queue   = Queue.create ();
-    lwt_fd  = Lwt_unix.of_unix_file_descr unix_fd;
-    unix_fd; }
+  try_lwt
+    let unix_fd = Inotify.init () in
+    return {
+      queue   = Queue.create ();
+      lwt_fd  = Lwt_unix.of_unix_file_descr unix_fd;
+      unix_fd; }
 
 let add_watch inotify path selector =
-  Inotify.add_watch inotify.unix_fd path selector
+  try_lwt
+    return (Inotify.add_watch inotify.unix_fd path selector)
 
 let rm_watch inotify wd =
-  Inotify.rm_watch inotify.unix_fd wd
+  try_lwt
+    return (Inotify.rm_watch inotify.unix_fd wd)
 
 let rec read inotify =
   try
     return (Queue.take inotify.queue)
   with Queue.Empty ->
-    Lwt_unix.wait_read inotify.lwt_fd >>= fun () ->
-    let events = Inotify.read inotify.unix_fd in
-    List.iter (fun event -> Queue.push event inotify.queue) events;
+    Lwt_unix.wait_read inotify.lwt_fd >>
+    begin try_lwt
+      let events = Inotify.read inotify.unix_fd in
+      List.iter (fun event -> Queue.push event inotify.queue) events;
+      return_unit
+    end >>
     read inotify
 
 let rec try_read inotify =

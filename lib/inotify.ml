@@ -14,8 +14,6 @@
  * Inotify OCaml binding
  *)
 
-exception Error of string * int
-
 type select_event =
 | S_Access
 | S_Attrib
@@ -79,15 +77,15 @@ let int_of_wd wd = wd
 type wd = int
 type event = wd * type_event list * int32 * string option
 
-external init : unit -> Unix.file_descr = "stub_inotify_init"
+external init : unit -> Unix.file_descr = "caml_inotify_init"
 external add_watch : Unix.file_descr -> string -> select_event list -> wd
-  = "stub_inotify_add_watch"
-external rm_watch : Unix.file_descr -> wd -> unit = "stub_inotify_rm_watch"
+  = "caml_inotify_add_watch"
+external rm_watch : Unix.file_descr -> wd -> unit = "caml_inotify_rm_watch"
 external convert : string -> (wd * type_event list * int32 * int)
-  = "stub_inotify_convert"
-external struct_size : unit -> int = "stub_inotify_struct_size"
+  = "caml_inotify_convert"
+external struct_size : unit -> int = "caml_inotify_struct_size"
 
-external to_read : Unix.file_descr -> int = "stub_inotify_ioctl_fionread"
+external to_read : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
 
 let read fd =
   let ss = struct_size () in
@@ -114,5 +112,3 @@ let read fd =
   done;
 
   List.rev !ret
-
-let _ = Callback.register_exception "inotify.error" (Error ("register_callback", 0))

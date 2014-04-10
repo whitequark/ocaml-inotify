@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 3c7fc1a4cefa9f371f60204e0a6f43dd)
+# DO NOT EDIT (digest: 71aa57158aaca24fed6d5ac4c93d6a24)
 version = "1.5"
 description = "Inotify bindings for ocaml"
 requires = "unix"
@@ -11,7 +11,7 @@ exists_if = "inotify.cma"
 package "lwt" (
  version = "1.5"
  description = "Inotify bindings for ocaml"
- requires = "unix inotify lwt lwt.unix"
+ requires = "unix inotify lwt lwt.syntax lwt.unix"
  archive(byte) = "inotify-lwt.cma"
  archive(byte, plugin) = "inotify-lwt.cma"
  archive(native) = "inotify-lwt.cmxa"
