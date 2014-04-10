@@ -4,7 +4,7 @@ Version      : 1.5
 Synopsis     : Inotify bindings for ocaml
 Authors      : Vincent Hanquez
 License      : LGPL-2.1 with OCaml linking exception
-Plugins      : META (0.3)
+Plugins      : DevFiles (0.3), META (0.3)
 BuildTools   : ocamlbuild
 BuildDepends : unix
 Maintainers  : Sean McLaughlin <seanmcl@gmail.com>
@@ -27,4 +27,30 @@ Library "inotify-lwt"
   FindlibParent:    inotify
   Path:             lib
   Modules:          Lwt_inotify
-  BuildDepends:     inotify, lwt
+  BuildDepends:     inotify, lwt, lwt.unix
+
+Executable test_inotify
+  Path:             lib_test
+  MainIs:           test_inotify.ml
+  Install:          false
+  BuildDepends:     oUnit (>= 1.1.0), fileutils (>= 0.4.4), inotify
+  CompiledObject:   best
+  ByteOpt:          -thread
+  NativeOpt:        -thread
+
+Test inotify
+  Command:          $test_inotify
+
+Executable test_inotify_lwt
+  Path:             lib_test
+  MainIs:           test_inotify_lwt.ml
+  Install:          false
+  Build$:           flag(lwt)
+  BuildDepends:     oUnit (>= 1.1.0), fileutils (>= 0.4.4), inotify.lwt
+  CompiledObject:   best
+  ByteOpt:          -thread
+  NativeOpt:        -thread
+
+Test inotify_lwt
+  Run$:             flag(lwt)
+  Command:          $test_inotify_lwt

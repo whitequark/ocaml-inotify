@@ -1,33 +1,41 @@
-default: build
+# OASIS_START
+# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 
-setup.ml: _oasis
-	oasis setup
+SETUP = ocaml setup.ml
 
-build: setup.ml
-	ocaml setup.ml -configure
-	ocaml setup.ml -build
+build: setup.data
+	$(SETUP) -build $(BUILDFLAGS)
 
-test:
-ifeq ($(shell uname -s),Darwin)
-	@echo "No inotify tests on Darwin"
-else
-	ocamlfind ocamlc \
-          -linkpkg \
-          -o test/test-inotify \
-          -package inotify \
-          test/test_inotify.ml
-	test/runtests.sh
-endif
+doc: setup.data build
+	$(SETUP) -doc $(DOCFLAGS)
 
-install: setup.ml
-	ocamlfind remove inotify
-	ocaml setup.ml -install
+test: setup.data build
+	$(SETUP) -test $(TESTFLAGS)
+
+all:
+	$(SETUP) -all $(ALLFLAGS)
+
+install: setup.data
+	$(SETUP) -install $(INSTALLFLAGS)
+
+uninstall: setup.data
+	$(SETUP) -uninstall $(UNINSTALLFLAGS)
+
+reinstall: setup.data
+	$(SETUP) -reinstall $(REINSTALLFLAGS)
 
 clean:
-	rm -rf \
-          *.native \
-          _build \
-          test/test-inotify \
-          {lib,test}/*.{cmi,cmo,cma,cmx}
+	$(SETUP) -clean $(CLEANFLAGS)
 
-.PHONY: build install test clean
+distclean:
+	$(SETUP) -distclean $(DISTCLEANFLAGS)
+
+setup.data:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
+
+configure:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
+
+.PHONY: build doc test all install uninstall reinstall clean distclean configure
+
+# OASIS_STOP

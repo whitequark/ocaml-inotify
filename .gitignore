@@ -1,6 +1,6 @@
 *.cm{i,o,x,t}
 *.native
+*.byte
 _build
 setup.log
 setup.data
-test/test-inotify
