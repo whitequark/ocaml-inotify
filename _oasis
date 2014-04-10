@@ -1,15 +1,15 @@
 OASISFormat  : 0.3
 Name         : inotify
-Version      : 1.5
+Version      : 2.0
 Synopsis     : Inotify bindings for ocaml
-Authors      : Vincent Hanquez
+Authors      : Vincent Hanquez, Peter Zotov
 License      : LGPL-2.1 with OCaml linking exception
 Plugins      : DevFiles (0.3), META (0.3)
 BuildTools   : ocamlbuild
 BuildDepends : unix
-Maintainers  : Sean McLaughlin <seanmcl@gmail.com>
+Maintainers  : Peter Zotov <whitequark@whitequark.org>
 Description  : Inotify bindings for ocaml
-Homepage     : http://bitbucket.org/seanmcl/ocaml-inotify
+Homepage     : https://github.com/whitequark/ocaml-inotify
 
 Flag lwt
   Description:      Build the Lwt wrapper
