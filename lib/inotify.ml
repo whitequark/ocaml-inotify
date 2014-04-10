@@ -79,36 +79,41 @@ external create : unit -> Unix.file_descr = "caml_inotify_init"
 external add_watch : Unix.file_descr -> string -> selector list -> watch
   = "caml_inotify_add_watch"
 external rm_watch : Unix.file_descr -> watch -> unit = "caml_inotify_rm_watch"
+external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
+
 external convert : string -> (watch * event_kind list * int32 * int)
   = "caml_inotify_convert"
 external struct_size : unit -> int = "caml_inotify_struct_size"
 
-external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
-
 let int_of_watch watch = watch
 
+let string_of_event (watch, events, cookie, name) =
+  Printf.sprintf "watch=%d cookie=%ld events=%s%s"
+                 watch cookie
+                 (String.concat "|" (List.map string_of_event_kind events))
+                 (match name with
+                  | None -> ""
+                  | Some name' -> Printf.sprintf " %S" name')
+
 let read fd =
-  let ss = struct_size () in
-  let toread = ioctl_fionread fd in
+  let event_size = struct_size () in
+  let bytes_queued = ioctl_fionread fd in
 
-  let ret = ref [] in
-  let buf = String.make toread '\000' in
-  let toread = Unix.read fd buf 0 toread in
+  let buf = String.create bytes_queued in
+  let bytes_read = Unix.read fd buf 0 bytes_queued in
 
-  let read_c_string offset len =
-    let index = ref 0 in
-    while !index < len && buf.[offset + !index] <> '\000' do incr index done;
-    String.sub buf offset !index
+  let read_c_string pos =
+    String.sub buf pos ((String.index_from buf pos '\x00') - pos)
   in
 
-  let i = ref 0 in
+  let rec read_one pos rest =
+    if bytes_read < pos + event_size then rest
+    else
+      let watch, mask, cookie, len = convert (String.sub buf pos event_size) in
+      if bytes_read < pos + event_size + len then rest
+      else
+        let name = if len > 0 then Some (read_c_string (pos + event_size)) else None in
+        read_one (pos + event_size + len) ((watch, mask, cookie, name) :: rest)
+  in
 
-  while !i < toread
-  do
-    let wd, l, cookie, len = convert (String.sub buf !i ss) in
-    let s = if len > 0 then Some (read_c_string (!i + ss) len) else None in
-    ret := (wd, l, cookie, s) :: !ret;
-    i := !i + (ss + len);
-  done;
-
-  List.rev !ret
+  List.rev (read_one 0 [])

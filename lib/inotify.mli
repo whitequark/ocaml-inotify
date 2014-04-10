@@ -58,6 +58,7 @@ type event = watch * event_kind list * int32 * string option
 
 val int_of_watch : watch -> int
 val string_of_event_kind : event_kind -> string
+val string_of_event : event -> string
 
 val create : unit -> Unix.file_descr
 val add_watch : Unix.file_descr -> string -> selector list -> watch
