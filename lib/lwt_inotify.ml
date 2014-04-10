@@ -8,7 +8,7 @@ type t = {
 
 let create () =
   try_lwt
-    let unix_fd = Inotify.init () in
+    let unix_fd = Inotify.create () in
     return {
       queue   = Queue.create ();
       lwt_fd  = Lwt_unix.of_unix_file_descr unix_fd;

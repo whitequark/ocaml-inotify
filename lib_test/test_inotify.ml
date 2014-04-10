@@ -2,7 +2,7 @@ open OUnit
 
 (* Test that basic events work *)
 let test_s_create tmpdir =
-  let inotify = Inotify.init () in
+  let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
   let watch = Inotify.add_watch inotify tmpdir [Inotify.S_Create] in
@@ -11,7 +11,7 @@ let test_s_create tmpdir =
 
 (* Test that cookie works *)
 let test_s_move tmpdir =
-  let inotify = Inotify.init () in
+  let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
   let watch = Inotify.add_watch inotify tmpdir [Inotify.S_Move] in
@@ -26,13 +26,13 @@ let test_s_move tmpdir =
 
 (* Test that error handling works *)
 let test_error tmpdir =
-  let inotify = Inotify.init () in
+  let inotify = Inotify.create () in
   assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", ""))
                 (fun () -> Inotify.add_watch inotify tmpdir [])
 
 (* Test that nonblocking polling works *)
 let test_nonblock tmpdir =
-  let inotify = Inotify.init () in
+  let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
   let _ = Inotify.add_watch inotify tmpdir [Inotify.S_Create] in

@@ -14,7 +14,7 @@
  * Inotify OCaml binding
  *)
 
-type select_event =
+type selector =
 | S_Access
 | S_Attrib
 | S_Close_write
@@ -35,7 +35,7 @@ type select_event =
 | S_Close
 | S_All
 
-type type_event =
+type event_kind =
 | Access
 | Attrib
 | Close_write
@@ -53,13 +53,13 @@ type type_event =
 | Q_overflow
 | Unmount
 
-type wd
-type event = wd * type_event list * int32 * string option
+type watch
+type event = watch * event_kind list * int32 * string option
 
-val int_of_wd : wd -> int
-val string_of_event : type_event -> string
+val int_of_watch : watch -> int
+val string_of_event_kind : event_kind -> string
 
-val init : unit -> Unix.file_descr
-val add_watch : Unix.file_descr -> string -> select_event list -> wd
-val rm_watch : Unix.file_descr -> wd -> unit
+val create : unit -> Unix.file_descr
+val add_watch : Unix.file_descr -> string -> selector list -> watch
+val rm_watch : Unix.file_descr -> watch -> unit
 val read : Unix.file_descr -> event list

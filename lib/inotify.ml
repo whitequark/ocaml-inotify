@@ -14,7 +14,7 @@
  * Inotify OCaml binding
  *)
 
-type select_event =
+type selector =
 | S_Access
 | S_Attrib
 | S_Close_write
@@ -36,7 +36,7 @@ type select_event =
 | S_Close
 | S_All
 
-type type_event =
+type event_kind =
 | Access
 | Attrib
 | Close_write
@@ -54,7 +54,7 @@ type type_event =
 | Q_overflow
 | Unmount
 
-let string_of_event = function
+let string_of_event_kind = function
 | Access -> "ACCESS"
 | Attrib -> "ATTRIB"
 | Close_write -> "CLOSE_WRITE"
@@ -72,24 +72,24 @@ let string_of_event = function
 | Q_overflow -> "Q_OVERFLOW"
 | Unmount -> "UNMOUNT"
 
-let int_of_wd wd = wd
+type watch = int
+type event = watch * event_kind list * int32 * string option
 
-type wd = int
-type event = wd * type_event list * int32 * string option
-
-external init : unit -> Unix.file_descr = "caml_inotify_init"
-external add_watch : Unix.file_descr -> string -> select_event list -> wd
+external create : unit -> Unix.file_descr = "caml_inotify_init"
+external add_watch : Unix.file_descr -> string -> selector list -> watch
   = "caml_inotify_add_watch"
-external rm_watch : Unix.file_descr -> wd -> unit = "caml_inotify_rm_watch"
-external convert : string -> (wd * type_event list * int32 * int)
+external rm_watch : Unix.file_descr -> watch -> unit = "caml_inotify_rm_watch"
+external convert : string -> (watch * event_kind list * int32 * int)
   = "caml_inotify_convert"
 external struct_size : unit -> int = "caml_inotify_struct_size"
 
-external to_read : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
+external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
+
+let int_of_watch watch = watch
 
 let read fd =
   let ss = struct_size () in
-  let toread = to_read fd in
+  let toread = ioctl_fionread fd in
 
   let ret = ref [] in
   let buf = String.make toread '\000' in
