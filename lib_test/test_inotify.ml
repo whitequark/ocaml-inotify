@@ -1,7 +1,8 @@
-open OUnit
+open OUnit2
 
 (* Test that basic events work *)
-let test_s_create tmpdir =
+let test_s_create ctxt =
+  let tmpdir = bracket_tmpdir ctxt in
   let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
@@ -10,7 +11,8 @@ let test_s_create tmpdir =
   assert_equal [watch, [Inotify.Create], 0l, Some "test"] (Inotify.read inotify)
 
 (* Test that cookie works *)
-let test_s_move tmpdir =
+let test_s_move ctxt =
+  let tmpdir = bracket_tmpdir ctxt in
   let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
@@ -25,13 +27,15 @@ let test_s_move tmpdir =
   | _ -> assert_failure "move"
 
 (* Test that error handling works *)
-let test_error tmpdir =
+let test_error ctxt =
+  let tmpdir = bracket_tmpdir ctxt in
   let inotify = Inotify.create () in
   assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", tmpdir))
                 (fun () -> Inotify.add_watch inotify tmpdir [])
 
 (* Test that nonblocking polling works *)
-let test_nonblock tmpdir =
+let test_nonblock ctxt =
+  let tmpdir = bracket_tmpdir ctxt in
   let inotify = Inotify.create () in
   Unix.set_nonblock inotify;
 
@@ -39,12 +43,12 @@ let test_nonblock tmpdir =
   assert_raises (Unix.Unix_error (Unix.EAGAIN, "read", ""))
                 (fun () -> Inotify.read inotify)
 
-let tests = "Test Inotify" >::: [
-    "Test S_Create watch"   >:: bracket Helper.setup test_s_create Helper.teardown;
-    "Test S_Move watch"     >:: bracket Helper.setup test_s_move Helper.teardown;
-    "Test error handling"   >:: bracket Helper.setup test_error Helper.teardown;
-    "Test nonblocking mode" >:: bracket Helper.setup test_nonblock Helper.teardown;
+let suite = "Test Inotify" >::: [
+    "Test S_Create watch"   >:: test_s_create;
+    "Test S_Move watch"     >:: test_s_move;
+    "Test error handling"   >:: test_error;
+    "Test nonblocking mode" >:: test_nonblock;
   ]
 
 let _ =
-  run_test_tt_main tests
+  run_test_tt_main suite

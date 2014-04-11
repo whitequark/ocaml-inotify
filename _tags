@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 4b7b7ec063b42f2da1bcd51366d82e8d)
+# DO NOT EDIT (digest: 5c461f75ce68f957c2c0c76fb1412c0b)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
@@ -25,19 +25,11 @@
 <lib/*.ml{,i}>: pkg_unix
 <lib/*.ml{,i}>: use_inotify
 # Executable test_inotify
-<lib_test/test_inotify.{native,byte}>: oasis_executable_test_inotify_byte
-<lib_test/*.ml{,i}>: oasis_executable_test_inotify_byte
-<lib_test/test_inotify.{native,byte}>: oasis_executable_test_inotify_native
-<lib_test/*.ml{,i}>: oasis_executable_test_inotify_native
 <lib_test/test_inotify.{native,byte}>: pkg_fileutils
 <lib_test/test_inotify.{native,byte}>: pkg_oUnit
 <lib_test/test_inotify.{native,byte}>: pkg_unix
 <lib_test/test_inotify.{native,byte}>: use_inotify
 # Executable test_inotify_lwt
-<lib_test/test_inotify_lwt.{native,byte}>: oasis_executable_test_inotify_lwt_byte
-<lib_test/*.ml{,i}>: oasis_executable_test_inotify_lwt_byte
-<lib_test/test_inotify_lwt.{native,byte}>: oasis_executable_test_inotify_lwt_native
-<lib_test/*.ml{,i}>: oasis_executable_test_inotify_lwt_native
 <lib_test/test_inotify_lwt.{native,byte}>: pkg_fileutils
 <lib_test/test_inotify_lwt.{native,byte}>: pkg_lwt
 <lib_test/test_inotify_lwt.{native,byte}>: pkg_lwt.syntax

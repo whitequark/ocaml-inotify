@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 2a07ce449f9564b16d7c5dfa2fbe6877) *)
+(* DO NOT EDIT (digest: 59993ced0d73465efd8a1403e7a51cec) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -598,77 +598,13 @@ let package_default =
      MyOCamlbuildBase.lib_ocaml =
        [("inotify", ["lib"], []); ("inotify-lwt", ["lib"], [])];
      lib_c = [("inotify", "lib", ["lib/inotify_stubs.h"])];
-     flags =
-       [
-          (["oasis_executable_test_inotify_byte"; "ocaml"; "link"; "byte"],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          (["oasis_executable_test_inotify_native"; "ocaml"; "link"; "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          (["oasis_executable_test_inotify_byte"; "ocaml"; "ocamldep"; "byte"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_native";
-              "ocaml";
-              "ocamldep";
-              "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          (["oasis_executable_test_inotify_byte"; "ocaml"; "compile"; "byte"],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_native";
-              "ocaml";
-              "compile";
-              "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          (["oasis_executable_test_inotify_lwt_byte"; "ocaml"; "link"; "byte"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_lwt_native";
-              "ocaml";
-              "link";
-              "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_lwt_byte";
-              "ocaml";
-              "ocamldep";
-              "byte"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_lwt_native";
-              "ocaml";
-              "ocamldep";
-              "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_lwt_byte";
-              "ocaml";
-              "compile";
-              "byte"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])]);
-          ([
-              "oasis_executable_test_inotify_lwt_native";
-              "ocaml";
-              "compile";
-              "native"
-           ],
-            [(OASISExpr.EBool true, S [A "-thread"])])
-       ];
+     flags = [];
      includes = [("lib_test", ["lib"])]
   }
   ;;
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default package_default;;
 
-# 673 "myocamlbuild.ml"
+# 609 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch dispatch_default;;
