@@ -82,7 +82,7 @@ value caml_inotify_add_watch(value fd, value path, value selector_flags) {
   int selector = caml_convert_flag_list(selector_flags, inotify_flag_table);
 
   int watch = inotify_add_watch(Int_val(fd), String_val(path), selector);
-  if (watch == -1) uerror("inotify_add_watch", Nothing);
+  if (watch == -1) uerror("inotify_add_watch", path);
 
   CAMLreturn(Val_int(watch));
 }

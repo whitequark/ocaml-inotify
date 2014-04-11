@@ -27,7 +27,7 @@ let test_s_move tmpdir =
 (* Test that error handling works *)
 let test_error tmpdir =
   let inotify = Inotify.create () in
-  assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", ""))
+  assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", tmpdir))
                 (fun () -> Inotify.add_watch inotify tmpdir [])
 
 (* Test that nonblocking polling works *)

@@ -32,7 +32,7 @@ let test_error tmpdir =
     lwt inotify = Lwt_inotify.create () in
     catch (fun () -> ignore (Lwt_inotify.add_watch inotify tmpdir []);
                      assert_failure "must raise")
-          (fun ex -> assert_equal (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", "")) ex;
+          (fun ex -> assert_equal (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", tmpdir)) ex;
                      return_unit))
 
 let tests = "Test Lwt_inotify" >::: [
