@@ -40,9 +40,10 @@ let test_error ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   Lwt_main.run (
     lwt inotify = Lwt_inotify.create () in
-    catch (fun () -> ignore_result (Lwt_inotify.add_watch inotify tmpdir []);
+    let tmpfile = Printf.sprintf "%s/nonexistent" tmpdir in
+    catch (fun () -> ignore_result (Lwt_inotify.add_watch inotify tmpfile [Inotify.S_Modify]);
                      assert_failure "must raise")
-          (fun ex -> assert_equal (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", tmpdir)) ex;
+          (fun ex -> assert_equal (Unix.Unix_error (Unix.ENOENT, "inotify_add_watch", tmpfile)) ex;
                      return_unit))
 
 let suite = "Test Lwt_inotify" >::: [

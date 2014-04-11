@@ -30,8 +30,9 @@ let test_s_move ctxt =
 let test_error ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   let inotify = Inotify.create () in
-  assert_raises (Unix.Unix_error (Unix.EINVAL, "inotify_add_watch", tmpdir))
-                (fun () -> Inotify.add_watch inotify tmpdir [])
+  let tmpfile = Printf.sprintf "%s/nonexistent" tmpdir in
+  assert_raises (Unix.Unix_error (Unix.ENOENT, "inotify_add_watch", tmpfile))
+                (fun () -> Inotify.add_watch inotify tmpfile [Inotify.S_Modify])
 
 (* Test that nonblocking polling works *)
 let test_nonblock ctxt =
