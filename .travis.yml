@@ -1,0 +1,13 @@
+language: c
+env:
+  - OPAM_PACKAGES="lwt ounit fileutils"
+script:
+  - echo "yes" | sudo add-apt-repository ppa:avsm/ppa
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq ocaml opam
+  - export OPAMYES=1
+  - opam init
+  - eval `opam config -env`
+  - opam install -q -y ${OPAM_PACKAGES}
+  - ./configure --enable-tests --enable-lwt
+  - make test
