@@ -30,9 +30,10 @@ Library "inotify-lwt"
   BuildDepends:     inotify, lwt, lwt.syntax, lwt.unix
 
 Executable test_inotify
+  Build$:           flag(tests)
+  Install:          false
   Path:             lib_test
   MainIs:           test_inotify.ml
-  Install:          false
   BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify
   CompiledObject:   best
 
@@ -40,10 +41,10 @@ Test inotify
   Command:          $test_inotify
 
 Executable test_inotify_lwt
+  Build$:           flag(tests) && flag(lwt)
+  Install:          false
   Path:             lib_test
   MainIs:           test_inotify_lwt.ml
-  Install:          false
-  Build$:           flag(lwt)
   BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify.lwt
   CompiledObject:   best
 
