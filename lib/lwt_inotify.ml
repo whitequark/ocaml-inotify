@@ -26,11 +26,11 @@ let rec read inotify =
   try
     return (Queue.take inotify.queue)
   with Queue.Empty ->
-    Lwt_unix.wait_read inotify.lwt_fd >>
+    Lwt_unix.wait_read inotify.lwt_fd >>= fun () ->
     catch (fun _ ->
       let events = Inotify.read inotify.unix_fd in
       List.iter (fun event -> Queue.push event inotify.queue) events;
-      return_unit) fail >>
+      return_unit) fail >>= fun () ->
     read inotify
 
 let rec try_read inotify =
