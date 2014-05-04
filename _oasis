@@ -27,7 +27,7 @@ Library "inotify-lwt"
   FindlibParent:    inotify
   Path:             lib
   Modules:          Lwt_inotify
-  BuildDepends:     inotify, lwt, lwt.syntax, lwt.unix
+  BuildDepends:     inotify, lwt, lwt.unix
 
 Executable test_inotify
   Build$:           flag(tests)
