@@ -81,7 +81,7 @@ external add_watch : Unix.file_descr -> string -> selector list -> watch
 external rm_watch : Unix.file_descr -> watch -> unit = "caml_inotify_rm_watch"
 external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
 
-external convert : string -> (watch * event_kind list * int32 * int)
+external convert : bytes -> (watch * event_kind list * int32 * int)
   = "caml_inotify_convert"
 external struct_size : unit -> int = "caml_inotify_struct_size"
 
@@ -99,17 +99,17 @@ let read fd =
   let event_size = struct_size () in
   let bytes_queued = ioctl_fionread fd in
 
-  let buf = String.create bytes_queued in
+  let buf = Bytes.create bytes_queued in
   let bytes_read = Unix.read fd buf 0 bytes_queued in
 
   let read_c_string pos =
-    String.sub buf pos ((String.index_from buf pos '\x00') - pos)
+    Bytes.sub_string buf pos ((Bytes.index_from buf pos '\x00') - pos)
   in
 
   let rec read_one pos rest =
     if bytes_read < pos + event_size then rest
     else
-      let watch, mask, cookie, len = convert (String.sub buf pos event_size) in
+      let watch, mask, cookie, len = convert (Bytes.sub buf pos event_size) in
       if bytes_read < pos + event_size + len then rest
       else
         let name = if len > 0 then Some (read_c_string (pos + event_size)) else None in

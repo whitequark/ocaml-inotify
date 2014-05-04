@@ -19,6 +19,9 @@ Library "inotify"
   Path:             lib
   Modules:          Inotify
   CSources:         inotify_stubs.c,inotify_stubs.h
+  BuildDepends:     bytes
+  ByteOpt:          -safe-string
+  NativeOpt:        -safe-string
 
 Library "inotify-lwt"
   Build$:           flag(lwt)

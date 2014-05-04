@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 59993ced0d73465efd8a1403e7a51cec) *)
+(* DO NOT EDIT (digest: 9f5b85b9b5c2a55aa1da0cf14c1b3dd7) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -598,14 +598,28 @@ let package_default =
      MyOCamlbuildBase.lib_ocaml =
        [("inotify", ["lib"], []); ("inotify-lwt", ["lib"], [])];
      lib_c = [("inotify", "lib", ["lib/inotify_stubs.h"])];
-     flags = [];
+     flags =
+       [
+          (["oasis_library_inotify_byte"; "ocaml"; "link"; "byte"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])]);
+          (["oasis_library_inotify_native"; "ocaml"; "link"; "native"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])]);
+          (["oasis_library_inotify_byte"; "ocaml"; "ocamldep"; "byte"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])]);
+          (["oasis_library_inotify_native"; "ocaml"; "ocamldep"; "native"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])]);
+          (["oasis_library_inotify_byte"; "ocaml"; "compile"; "byte"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])]);
+          (["oasis_library_inotify_native"; "ocaml"; "compile"; "native"],
+            [(OASISExpr.EBool true, S [A "-safe-string"])])
+       ];
      includes = [("lib_test", ["lib"])]
   }
   ;;
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default package_default;;
 
-# 609 "myocamlbuild.ml"
+# 623 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch
   (MyOCamlbuildBase.dispatch_combine [

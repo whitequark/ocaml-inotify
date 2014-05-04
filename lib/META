@@ -1,8 +1,8 @@
 # OASIS_START
-# DO NOT EDIT (digest: 7269c041f98bf6183cb0ba9865a5677b)
+# DO NOT EDIT (digest: 6cffbd55256e642d3f39e5cde54f5aa7)
 version = "2.0"
 description = "Inotify bindings for ocaml"
-requires = "unix"
+requires = "unix bytes"
 archive(byte) = "inotify.cma"
 archive(byte, plugin) = "inotify.cma"
 archive(native) = "inotify.cmxa"
