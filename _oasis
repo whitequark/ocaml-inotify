@@ -1,4 +1,4 @@
-OASISFormat  : 0.3
+OASISFormat  : 0.4
 Name         : inotify
 Version      : 2.0
 Synopsis     : Inotify bindings for ocaml
@@ -54,3 +54,20 @@ Executable test_inotify_lwt
 Test inotify_lwt
   Run$:             flag(lwt)
   Command:          $test_inotify_lwt -runner sequential
+
+AlphaFeatures: ocamlbuild_more_args
+Document api
+  Type: ocamlbuild (0.4)
+  BuildTools: ocamldoc
+
+  Title: API reference for Ocaml-inotify
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: inotify, inotify.lwt
+
+SourceRepository master
+  Type: git
+  Location: https://github.com/whitequark/ocaml-inotify.git
+  Branch: master
+  Browser: https://github.com/whitequark/ocaml-inotify

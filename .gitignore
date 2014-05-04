@@ -1,6 +1,7 @@
 *.cm{i,o,x,t}
 *.native
 *.byte
+*.docdir
 _build
 setup.log
 setup.data
