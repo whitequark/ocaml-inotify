@@ -1,6 +1,6 @@
 language: c
 env:
-  - OPAM_PACKAGES="lwt ounit fileutils"
+  - OPAM_PACKAGES="lwt ounit fileutils oasis"
 script:
   - echo "yes" | sudo add-apt-repository ppa:avsm/ppa
   - sudo apt-get update -qq
