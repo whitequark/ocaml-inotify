@@ -11,27 +11,27 @@ let (>::) name f =
 let test_read ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   Lwt_main.run (
-    lwt inotify = Lwt_inotify.create () in
-    lwt watch = Lwt_inotify.add_watch inotify tmpdir [Inotify.S_Create] in
+    Lwt_inotify.create () >>= fun inotify ->
+    Lwt_inotify.add_watch inotify tmpdir [Inotify.S_Create] >>= fun watch ->
     FileUtil.touch (Printf.sprintf "%s/test" tmpdir);
-    lwt result = Lwt_inotify.read inotify in
+    Lwt_inotify.read inotify >>= fun result ->
     assert_equal (watch, [Inotify.Create], 0l, Some "test") result;
     return_unit)
 
 let test_try_read ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   Lwt_main.run (
-    lwt inotify = Lwt_inotify.create () in
-    lwt watch = Lwt_inotify.add_watch inotify tmpdir [Inotify.S_Create] in
+    Lwt_inotify.create () >>= fun inotify ->
+    Lwt_inotify.add_watch inotify tmpdir [Inotify.S_Create] >>= fun watch ->
 
-    lwt result = Lwt_inotify.try_read inotify in
+    Lwt_inotify.try_read inotify >>= fun result ->
     OUnit.assert_equal None result;
 
     FileUtil.touch (Printf.sprintf "%s/test" tmpdir);
-    lwt result = Lwt_inotify.read inotify in
+    Lwt_inotify.read inotify >>= fun result ->
     assert_equal (watch, [Inotify.Create], 0l, Some "test") result;
 
-    lwt result = Lwt_inotify.try_read inotify in
+    Lwt_inotify.try_read inotify >>= fun result ->
     OUnit.assert_equal None result;
 
     return_unit)
@@ -39,7 +39,7 @@ let test_try_read ctxt =
 let test_error ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   Lwt_main.run (
-    lwt inotify = Lwt_inotify.create () in
+    Lwt_inotify.create () >>= fun inotify ->
     let tmpfile = Printf.sprintf "%s/nonexistent" tmpdir in
     catch (fun () -> ignore_result (Lwt_inotify.add_watch inotify tmpfile [Inotify.S_Modify]);
                      assert_failure "must raise")
