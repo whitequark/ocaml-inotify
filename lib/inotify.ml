@@ -81,7 +81,7 @@ external add_watch : Unix.file_descr -> string -> selector list -> watch
 external rm_watch : Unix.file_descr -> watch -> unit = "caml_inotify_rm_watch"
 external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
 
-external convert : bytes -> (watch * event_kind list * int32 * int)
+external convert : Bytes.t -> (watch * event_kind list * int32 * int)
   = "caml_inotify_convert"
 external struct_size : unit -> int = "caml_inotify_struct_size"
 
