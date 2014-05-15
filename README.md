@@ -45,6 +45,11 @@ Lwt_main.run (
 Note that Lwt-style interface returns events one-by-one, but the Unix-style one returns
 them in small batches.
 
+Documentation
+-------------
+
+The API documentation is available at [GitHub pages](http://whitequark.github.io/ocaml-inotify/).
+
 License
 -------
 
