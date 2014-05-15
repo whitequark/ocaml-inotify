@@ -11,7 +11,7 @@ Maintainers  : Peter Zotov <whitequark@whitequark.org>
 Description  : Inotify bindings for ocaml
 Homepage     : https://github.com/whitequark/ocaml-inotify
 
-Flag lwt
+Flag "lwt"
   Description:      Build the Lwt wrapper
   Default:          false
 
@@ -30,7 +30,7 @@ Library "inotify-lwt"
   Modules:          Lwt_inotify
   BuildDepends:     inotify, lwt, lwt.unix
 
-Executable test_inotify
+Executable "test_inotify"
   Build$:           flag(tests)
   Install:          false
   Path:             lib_test
@@ -38,10 +38,10 @@ Executable test_inotify
   BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify
   CompiledObject:   best
 
-Test inotify
+Test "inotify"
   Command:          $test_inotify
 
-Executable test_inotify_lwt
+Executable "test_inotify_lwt"
   Build$:           flag(tests) && flag(lwt)
   Install:          false
   Path:             lib_test
@@ -49,23 +49,22 @@ Executable test_inotify_lwt
   BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify.lwt
   CompiledObject:   best
 
-Test inotify_lwt
+Test "inotify_lwt"
   Run$:             flag(lwt)
   Command:          $test_inotify_lwt -runner sequential
 
 AlphaFeatures: ocamlbuild_more_args
-Document api
-  Type: ocamlbuild (0.4)
-  BuildTools: ocamldoc
+Document "api"
+  Type:             ocamlbuild (0.4)
+  BuildTools:       ocamldoc
+  Title:            API reference for OCaml-Inotify
 
-  Title: API reference for Ocaml-inotify
-  XOCamlbuildPath: .
-  XOCamlbuildExtraArgs:
-    "-docflags '-colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildPath:      .
+  XOCamlbuildExtraArgs: "-docflags '-colorize-code -short-functors -charset utf-8'"
   XOCamlbuildLibraries: inotify, inotify.lwt
 
-SourceRepository master
-  Type: git
-  Location: https://github.com/whitequark/ocaml-inotify.git
-  Branch: master
-  Browser: https://github.com/whitequark/ocaml-inotify
+SourceRepository "master"
+  Type:             git
+  Location:         https://github.com/whitequark/ocaml-inotify.git
+  Branch:           master
+  Browser:          https://github.com/whitequark/ocaml-inotify

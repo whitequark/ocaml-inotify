@@ -1,13 +1,6 @@
 open OUnit2
 open Lwt
 
-let scheduler_mutex = OUnitShared.Mutex.create OUnitShared.ScopeProcess
-
-let (>::) name f =
-  name >:: (fun ctxt ->
-              OUnitShared.Mutex.with_lock ctxt.OUnitTest.shared scheduler_mutex
-                (fun () -> f ctxt))
-
 let test_read ctxt =
   let tmpdir = bracket_tmpdir ctxt in
   Lwt_main.run (
