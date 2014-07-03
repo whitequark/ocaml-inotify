@@ -1,4 +1,3 @@
-*.cm{i,o,x,t}
 *.native
 *.byte
 *.docdir

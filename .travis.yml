@@ -8,7 +8,6 @@ script:
   - export OPAMYES=1
   - opam init
   - eval `opam config -env`
-  - opam pin ocamlfind git://github.com/whitequark/ocaml-findlib
   - opam install -q -y ${OPAM_PACKAGES}
   - ./configure --enable-tests --enable-lwt
   - make test

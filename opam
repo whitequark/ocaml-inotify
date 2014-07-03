@@ -6,6 +6,6 @@ build: [
   ["ocaml" "setup.ml" "-install"]
 ]
 remove: [["ocamlfind" "remove" "inotify"]]
-depends: ["ocamlfind" "base-unix"]
+depends: ["base-unix" "base-bytes" "ocamlfind"]
 depopts: ["lwt"]
 os: ["linux" | "darwin"]
