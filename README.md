@@ -35,9 +35,9 @@ Lwt-style interface (findlib package `inotify.lwt`):
 
 ``` ocaml
 Lwt_main.run (
-  lwt inotify = Lwt_inotify.create () in
-  lwt watch   = Lwt_inotify.add_watch inotify "dir" [Inotify.S_Create] in
-  lwt event   = Lwt_inotify.read inotify in
+  let%lwt inotify = Lwt_inotify.create () in
+  let%lwt watch   = Lwt_inotify.add_watch inotify "dir" [Inotify.S_Create] in
+  let%lwt event   = Lwt_inotify.read inotify in
   Lwt_io.printl (Inotify.string_of_event event))
   (* watch=1 cookie=0 events=CREATE "file" *)
 ```
