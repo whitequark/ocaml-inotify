@@ -51,4 +51,13 @@ gh-pages: doc
 	git -C .gh-pages push origin gh-pages -f
 	rm -rf .gh-pages
 
-.PHONY: gh-pages
+release:
+	git checkout -B release
+	oasis setup
+	git add .
+	git commit -m "Generate OASIS files."
+	git tag -a v$(shell oasis query version) -m "Version $(shell oasis query version)"
+	git checkout @{-1}
+	git branch -D release
+
+.PHONY: gh-pages release
