@@ -1,0 +1,5 @@
+# OASIS_START
+# DO NOT EDIT (digest: 6189915246d7d862710656f357931fbc)
+lib/Inotify
+lib/Lwt_inotify
+# OASIS_STOP
