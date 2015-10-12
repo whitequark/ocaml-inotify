@@ -8,6 +8,6 @@ script:
   - export OPAMYES=1
   - opam init
   - eval `opam config -env`
-  - opam install -q -y ${OPAM_PACKAGES}
+  - opam install -q -y oasis ${OPAM_PACKAGES}
   - ./configure --enable-tests --enable-lwt
   - make test
