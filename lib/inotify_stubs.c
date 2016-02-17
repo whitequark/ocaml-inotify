@@ -28,19 +28,8 @@
 #include <caml/callback.h>
 #include <caml/unixsupport.h>
 
-#ifndef __APPLE__
-#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 4
-#define GLIBC_SUPPORT_INOTIFY 1
-#else
-#define GLIBC_SUPPORT_INOTIFY 0
-#endif
-
-#if GLIBC_SUPPORT_INOTIFY
 #include <features.h>
 #include <sys/inotify.h>
-#else
-#include "inotify_stubs.h"
-#endif
 
 static int inotify_flag_table[] = {
   IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
@@ -129,37 +118,3 @@ value caml_inotify_convert(value buf) {
 
   CAMLreturn(event);
 }
-
-#else  /* !__APPLE__ */
-
-value caml_inotify_init(value unit) {
-  CAMLparam1(unit);
-  unix_error(ENOTSUP, "inotify_init", Nothing);
-}
-
-value caml_inotify_ioctl_fionread(value fd) {
-  CAMLparam1(fd);
-  unix_error(ENOTSUP, "ioctl(FIONREAD)", Nothing);
-}
-
-value caml_inotify_add_watch(value fd, value path, value mask) {
-  CAMLparam3(fd, path, mask);
-  unix_error(ENOTSUP, "inotify_add_watch", Nothing);
-}
-
-value caml_inotify_rm_watch(value fd, value wd) {
-  CAMLparam2(fd, wd);
-  unix_error(ENOTSUP, "inotify_rm_watch", Nothing);
-}
-
-value caml_inotify_struct_size(void) {
-  CAMLparam0();
-  abort(); /* unreachable */
-}
-
-value caml_inotify_convert(value buf) {
-  CAMLparam1(buf);
-  abort(); /* unreachable */
-}
-
-#endif /* !__APPLE__ */
