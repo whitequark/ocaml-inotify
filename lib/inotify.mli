@@ -73,6 +73,15 @@ type event = watch * event_kind list * int32 * string option
     watch descriptor [wd]. *)
 val int_of_watch         : watch -> int
 
+(**/**)
+
+(* [watch_of_int i] is the {!watch} corresponding to the integer
+   [i]. It violates the construction privacy of the {!watch} type but
+   is useful when using {!event} as a network portable type. *)
+val watch_of_int         : int -> watch
+
+(**/**)
+
 (** [string_of_event_kind ek] returns the string representation of event kind [ek],
     e.g. [string_of_event_kind Move_self] ≡ ["MOVE_SELF"]. *)
 val string_of_event_kind : event_kind -> string

@@ -87,6 +87,8 @@ external struct_size : unit -> int = "caml_inotify_struct_size"
 
 let int_of_watch watch = watch
 
+let watch_of_int watch = watch
+
 let string_of_event (watch, events, cookie, name) =
   Printf.sprintf "watch=%d cookie=%ld events=%s%s"
                  watch cookie
