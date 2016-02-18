@@ -18,7 +18,7 @@ Flag "lwt"
 Library "inotify"
   Path:             lib
   Modules:          Inotify
-  CSources:         inotify_stubs.c,inotify_stubs.h
+  CSources:         inotify_stubs.c
   BuildDepends:     bytes
 
 Library "inotify-lwt"
