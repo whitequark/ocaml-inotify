@@ -51,12 +51,21 @@ gh-pages: doc
 	git -C .gh-pages push origin gh-pages -f
 	rm -rf .gh-pages
 
+VERSION      := $$(oasis query version)
+NAME_VERSION := $$(oasis query name).$(VERSION)
+ARCHIVE      := https://github.com/whitequark/ocaml-inotify/archive/v$(VERSION).tar.gz
+
 release:
 	git checkout -B release
 	oasis setup
 	git add .
 	git commit -m "Generate OASIS files."
-	git tag -a v$(shell oasis query version) -m "Version $(shell oasis query version)"
+	git tag -a v$(VERSION) -m "Version $(VERSION)."
+	git push origin v$(VERSION)
+	opam publish prepare $(NAME_VERSION) $(ARCHIVE)
+	cp opam $(NAME_VERSION)/opam
+	opam publish submit $(NAME_VERSION)
+	rm -rf $(NAME_VERSION)
 	git checkout @{-1}
 	git branch -D release
 
