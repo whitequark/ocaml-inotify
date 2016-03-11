@@ -1,0 +1,100 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Inotify" rel="Chapter" href="Inotify.html">
+<link title="Lwt_inotify" rel="Chapter" href="Lwt_inotify.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><br>A</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALadd_watch">add_watch</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">add_watch desc path events</code> sets up <code class="code">desc</code> to watch for <code class="code">events</code> occuring
+    to <code class="code">path</code>, and returns a watch descriptor.
+</div>
+</td></tr>
+<tr><td><a href="Inotify.html#VALadd_watch">add_watch</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">add_watch fd path events</code> starts observing events from <code class="code">events</code> for path <code class="code">path</code>
+    at inotify file descriptor <code class="code">fd</code> and returns a fresh watch descriptor, or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_add_watch"</span>, path)</code>.
+</div>
+</td></tr>
+<tr><td align="left"><br>C</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALclose">close</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">close desc</code> frees <code class="code">desc</code>.
+</div>
+</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALcreate">create</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">create ()</code> returns a new inotify descriptor.
+</div>
+</td></tr>
+<tr><td><a href="Inotify.html#VALcreate">create</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">create ()</code> returns a fresh inotify file descriptor or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_init"</span>, <span class="string">""</span>)</code>.
+</div>
+</td></tr>
+<tr><td align="left"><br>I</td></tr>
+<tr><td><a href="Inotify.html#VALint_of_watch">int_of_watch</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">int_of_watch wd</code> returns the underlying integer representation of
+    watch descriptor <code class="code">wd</code>.
+</div>
+</td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALread">read</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">read desc</code> waits for an event to occur at <code class="code">desc</code>.
+</div>
+</td></tr>
+<tr><td><a href="Inotify.html#VALread">read</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">read fd</code> requests a list of events for inotify file descriptor <code class="code">fd</code>.
+</div>
+</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALrm_watch">rm_watch</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">rm_watch desc watch</code> stops <code class="code">desc</code> from watching <code class="code">watch</code>.
+</div>
+</td></tr>
+<tr><td><a href="Inotify.html#VALrm_watch">rm_watch</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">rm_watch fd watch</code> stops observing events corresponding to watch descriptor <code class="code">watch</code>
+    at inotify file descriptor <code class="code">fd</code>, or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_rm_watch"</span>, path)</code>.
+</div>
+</td></tr>
+<tr><td align="left"><br>S</td></tr>
+<tr><td><a href="Inotify.html#VALstring_of_event">string_of_event</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">string_of_event event</code> returns the string representation of event <code class="code">ev</code>,
+    e.g.
+</div>
+</td></tr>
+<tr><td><a href="Inotify.html#VALstring_of_event_kind">string_of_event_kind</a> [<a href="Inotify.html">Inotify</a>]</td>
+<td><div class="info">
+<code class="code">string_of_event_kind ek</code> returns the string representation of event kind <code class="code">ek</code>,
+    e.g.
+</div>
+</td></tr>
+<tr><td align="left"><br>T</td></tr>
+<tr><td><a href="Lwt_inotify.html#VALtry_read">try_read</a> [<a href="Lwt_inotify.html">Lwt_inotify</a>]</td>
+<td><div class="info">
+<code class="code">try_read desc</code> returns <code class="code"><span class="constructor">Some</span> event</code> if <code class="code">desc</code> has queued events,
+    or <code class="code"><span class="constructor">None</span></code> otherwise.
+</div>
+</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Lwt_inotify.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Inotify" rel="Chapter" href="Inotify.html">
+<link title="Lwt_inotify" rel="Chapter" href="Lwt_inotify.html"><title>Inotify</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Lwt_inotify.html" title="Lwt_inotify">Next</a>
+</div>
+<h1>Module <a href="type_Inotify.html">Inotify</a></h1>
+
+<pre><span class="keyword">module</span> Inotify: <code class="code"><span class="keyword">sig</span></code> <a href="Inotify.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Inotify binding for OCaml<br>
+<b>See also</b> <a href="http://man7.org/linux/man-pages/man7/inotify.7.html">Inotify manual page</a><br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEselector"><span class="keyword">type</span> <code class="type"></code>selector</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Access"><span class="constructor">S_Access</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Attrib"><span class="constructor">S_Attrib</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Close_write"><span class="constructor">S_Close_write</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Close_nowrite"><span class="constructor">S_Close_nowrite</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Create"><span class="constructor">S_Create</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Delete"><span class="constructor">S_Delete</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Delete_self"><span class="constructor">S_Delete_self</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Modify"><span class="constructor">S_Modify</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Move_self"><span class="constructor">S_Move_self</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Moved_from"><span class="constructor">S_Moved_from</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Moved_to"><span class="constructor">S_Moved_to</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Open"><span class="constructor">S_Open</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Dont_follow"><span class="constructor">S_Dont_follow</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Mask_add"><span class="constructor">S_Mask_add</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Oneshot"><span class="constructor">S_Oneshot</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Onlydir"><span class="constructor">S_Onlydir</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Move"><span class="constructor">S_Move</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_Close"><span class="constructor">S_Close</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTselector.S_All"><span class="constructor">S_All</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+Type of event masks.<br>
+</div>
+
+
+<pre><code><span id="TYPEevent_kind"><span class="keyword">type</span> <code class="type"></code>event_kind</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Access"><span class="constructor">Access</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Attrib"><span class="constructor">Attrib</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Close_write"><span class="constructor">Close_write</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Close_nowrite"><span class="constructor">Close_nowrite</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Create"><span class="constructor">Create</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Delete"><span class="constructor">Delete</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Delete_self"><span class="constructor">Delete_self</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Modify"><span class="constructor">Modify</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Move_self"><span class="constructor">Move_self</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Moved_from"><span class="constructor">Moved_from</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Moved_to"><span class="constructor">Moved_to</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Open"><span class="constructor">Open</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Ignored"><span class="constructor">Ignored</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Isdir"><span class="constructor">Isdir</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Q_overflow"><span class="constructor">Q_overflow</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent_kind.Unmount"><span class="constructor">Unmount</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+Type of observed events.<br>
+</div>
+
+
+<pre><span id="TYPEwatch"><span class="keyword">type</span> <code class="type"></code>watch</span> </pre>
+<div class="info ">
+Type of watch descriptors.<br>
+</div>
+
+
+<pre><span id="TYPEevent"><span class="keyword">type</span> <code class="type"></code>event</span> = <code class="type"><a href="Inotify.html#TYPEwatch">watch</a> * <a href="Inotify.html#TYPEevent_kind">event_kind</a> list * int32 * string option</code> </pre>
+<div class="info ">
+Type of received events, corresponding to <code class="code"><span class="keyword">struct</span> inotify_event</code>.
+    In event <code class="code">wd, kinds, cookie, path</code>, <code class="code">wd</code> corresponds to <code class="code">inotify_event.wd</code>,
+    <code class="code">kinds</code> corresponds to the bits set in <code class="code">inotify_event.mask</code>, <code class="code">cookie</code>
+    corresponds to <code class="code">inotify_event.cookie</code>, <code class="code">path</code> is <code class="code"><span class="constructor">Some</span> filename</code> if
+    <code class="code">inotify_event.len &gt; 0</code> and <code class="code"><span class="constructor">None</span></code> otherwise.<br>
+</div>
+
+
+<pre><span id="VALint_of_watch"><span class="keyword">val</span> int_of_watch</span> : <code class="type"><a href="Inotify.html#TYPEwatch">watch</a> -> int</code></pre><div class="info ">
+<code class="code">int_of_watch wd</code> returns the underlying integer representation of
+    watch descriptor <code class="code">wd</code>.<br>
+</div>
+
+<pre><span id="VALstring_of_event_kind"><span class="keyword">val</span> string_of_event_kind</span> : <code class="type"><a href="Inotify.html#TYPEevent_kind">event_kind</a> -> string</code></pre><div class="info ">
+<code class="code">string_of_event_kind ek</code> returns the string representation of event kind <code class="code">ek</code>,
+    e.g. <code class="code">string_of_event_kind <span class="constructor">Move_self</span></code> ≡ <code class="code"><span class="string">"MOVE_SELF"</span></code>.<br>
+</div>
+
+<pre><span id="VALstring_of_event"><span class="keyword">val</span> string_of_event</span> : <code class="type"><a href="Inotify.html#TYPEevent">event</a> -> string</code></pre><div class="info ">
+<code class="code">string_of_event event</code> returns the string representation of event <code class="code">ev</code>,
+    e.g. <code class="code">string_of_event</code><br>
+</div>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">unit -> Unix.file_descr</code></pre><div class="info ">
+<code class="code">create ()</code> returns a fresh inotify file descriptor or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_init"</span>, <span class="string">""</span>)</code>.<br>
+</div>
+
+<pre><span id="VALadd_watch"><span class="keyword">val</span> add_watch</span> : <code class="type">Unix.file_descr -> string -> <a href="Inotify.html#TYPEselector">selector</a> list -> <a href="Inotify.html#TYPEwatch">watch</a></code></pre><div class="info ">
+<code class="code">add_watch fd path events</code> starts observing events from <code class="code">events</code> for path <code class="code">path</code>
+    at inotify file descriptor <code class="code">fd</code> and returns a fresh watch descriptor, or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_add_watch"</span>, path)</code>.<br>
+</div>
+
+<pre><span id="VALrm_watch"><span class="keyword">val</span> rm_watch</span> : <code class="type">Unix.file_descr -> <a href="Inotify.html#TYPEwatch">watch</a> -> unit</code></pre><div class="info ">
+<code class="code">rm_watch fd watch</code> stops observing events corresponding to watch descriptor <code class="code">watch</code>
+    at inotify file descriptor <code class="code">fd</code>, or raises
+    <code class="code"><span class="constructor">Unix</span>.<span class="constructor">Unix_error</span>(errno, <span class="string">"inotify_rm_watch"</span>, path)</code>.<br>
+</div>
+
+<pre><span id="VALread"><span class="keyword">val</span> read</span> : <code class="type">Unix.file_descr -> <a href="Inotify.html#TYPEevent">event</a> list</code></pre><div class="info ">
+<code class="code">read fd</code> requests a list of events for inotify file descriptor <code class="code">fd</code>. Each event
+    will include the watch descriptor, which can be used to determine the path that
+    caused it, and <code class="code"><span class="constructor">Moved_to</span></code> and <code class="code"><span class="constructor">Moved_from</span></code> events will include a cookie that allows
+    to associate them with each other.
+<p>
+
+    If <a href="Inotify.html#VALread"><code class="code"><span class="constructor">Inotify</span>.read</code></a> is not called often enough, the kernel event buffer may overflow, in which
+    case the event kind list will consist of <code class="code">[<span class="constructor">Q_overflow</span>]</code>. Such an event would be
+    associated with a watch descriptor <code class="code">-1</code>, never returned from <a href="Inotify.html#VALadd_watch"><code class="code"><span class="constructor">Inotify</span>.add_watch</code></a>.<br>
+</div>
+</body></html>
