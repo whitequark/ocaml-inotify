@@ -18,7 +18,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
+#include <limits.h>
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
 #include <caml/alloc.h>
@@ -55,16 +55,6 @@ value caml_inotify_init(value unit) {
   CAMLreturn(Val_int(fd));
 }
 
-value caml_inotify_ioctl_fionread(value fd) {
-  CAMLparam1(fd);
-
-  int bytes;
-  int ret = ioctl(Int_val(fd), FIONREAD, &bytes);
-  if (ret == -1) uerror("ioctl(FIONREAD)", Nothing);
-
-  CAMLreturn(Val_int(bytes));
-}
-
 value caml_inotify_add_watch(value fd, value path, value selector_flags) {
   CAMLparam3(fd, path, selector_flags);
 
@@ -88,6 +78,11 @@ value caml_inotify_rm_watch(value fd, value watch) {
 value caml_inotify_struct_size(void) {
   CAMLparam0();
   CAMLreturn(Val_int(sizeof(struct inotify_event)));
+}
+
+value caml_inotify_name_max(void) {
+  CAMLparam0();
+  CAMLreturn(Val_int(NAME_MAX));
 }
 
 value caml_inotify_convert(value buf) {

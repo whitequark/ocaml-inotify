@@ -79,11 +79,11 @@ external create : unit -> Unix.file_descr = "caml_inotify_init"
 external add_watch : Unix.file_descr -> string -> selector list -> watch
   = "caml_inotify_add_watch"
 external rm_watch : Unix.file_descr -> watch -> unit = "caml_inotify_rm_watch"
-external ioctl_fionread : Unix.file_descr -> int = "caml_inotify_ioctl_fionread"
 
 external convert : Bytes.t -> (watch * event_kind list * int32 * int)
   = "caml_inotify_convert"
 external struct_size : unit -> int = "caml_inotify_struct_size"
+external name_max : unit -> int = "caml_inotify_name_max"
 
 let int_of_watch watch = watch
 
@@ -98,11 +98,21 @@ let string_of_event (watch, events, cookie, name) =
                   | Some name' -> Printf.sprintf " %S" name')
 
 let read fd =
-  let event_size = struct_size () in
-  let bytes_queued = ioctl_fionread fd in
+  (* Turns out that reading from blocking descriptors always requires a buffer
+     of the maximum size, which is, from the inotify man page:
 
-  let buf = Bytes.create bytes_queued in
-  let bytes_read = Unix.read fd buf 0 bytes_queued in
+       The behavior when the buffer given to read(2) is too small to return
+       information about the next event depends on the kernel version: in
+       kernels before 2.6.21, read(2) returns 0; since kernel 2.6.21,
+       read(2) fails with the error EINVAL.  Specifying a buffer of size
+
+           sizeof(struct inotify_event) + NAME_MAX + 1
+   *)
+  let event_size = struct_size () in
+
+  let buf_size = event_size + (name_max ()) + 1 in
+  let buf = Bytes.create buf_size in
+  let bytes_read = Unix.read fd buf 0 buf_size in
 
   let read_c_string pos =
     Bytes.sub_string buf pos ((Bytes.index_from buf pos '\x00') - pos)

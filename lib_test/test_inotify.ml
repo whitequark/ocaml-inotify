@@ -10,6 +10,17 @@ let test_s_create ctxt =
   FileUtil.touch (Printf.sprintf "%s/test" tmpdir);
   assert_equal [watch, [Inotify.Create], 0l, Some "test"] (Inotify.read inotify)
 
+(* See https://github.com/whitequark/ocaml-inotify/issues/8 *)
+let test_s_create_blocking ctxt =
+  let tmpdir = bracket_tmpdir ctxt in
+  let inotify = Inotify.create () in
+
+  let watch = Inotify.add_watch inotify tmpdir [Inotify.S_Create] in
+  () |> Thread.create (fun () ->
+    Unix.sleepf 0.5;
+    FileUtil.touch (Printf.sprintf "%s/test" tmpdir));
+  assert_equal [watch, [Inotify.Create], 0l, Some "test"] (Inotify.read inotify)
+
 (* Test that cookie works *)
 let test_s_move ctxt =
   let tmpdir = bracket_tmpdir ctxt in
@@ -46,6 +57,7 @@ let test_nonblock ctxt =
 
 let suite = "Test Inotify" >::: [
     "Test S_Create watch"   >:: test_s_create;
+    "Test blocking watch"   >:: test_s_create_blocking;
     "Test S_Move watch"     >:: test_s_move;
     "Test error handling"   >:: test_error;
     "Test nonblocking mode" >:: test_nonblock;

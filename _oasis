@@ -2,12 +2,12 @@ OASISFormat  : 0.4
 Name         : inotify
 Version      : 2.2
 Synopsis     : Inotify bindings for ocaml
-Authors      : Vincent Hanquez, Peter Zotov
+Authors      : Vincent Hanquez, whitequark
 License      : LGPL-2.1 with OCaml linking exception
 Plugins      : DevFiles (0.3), META (0.3)
 BuildTools   : ocamlbuild
 BuildDepends : unix
-Maintainers  : Peter Zotov <whitequark@whitequark.org>
+Maintainers  : whitequark <whitequark@whitequark.org>
 Description  : Inotify bindings for ocaml
 Homepage     : https://github.com/whitequark/ocaml-inotify
 
@@ -35,7 +35,7 @@ Executable "test_inotify"
   Install:          false
   Path:             lib_test
   MainIs:           test_inotify.ml
-  BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify
+  BuildDepends:     oUnit (>= 2.0), fileutils (>= 0.4.4), inotify, threads
   CompiledObject:   best
 
 Test "inotify"
