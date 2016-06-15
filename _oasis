@@ -1,6 +1,6 @@
 OASISFormat  : 0.4
 Name         : inotify
-Version      : 2.2
+Version      : 2.3
 Synopsis     : Inotify bindings for ocaml
 Authors      : Vincent Hanquez, whitequark
 License      : LGPL-2.1 with OCaml linking exception
