@@ -8,7 +8,7 @@
 (homepage "https://github.com/whitequark/ocaml-inotify")
 (documentation "http://whitequark.github.io/ocaml-inotify")
 (bug_reports "https://github.com/whitequark/ocaml-inotify/issues")
-(source (github maiste/ocaml-inotify))
+(source (github whitequark/ocaml-inotify))
 
 (package
   (name inotify)
@@ -19,6 +19,7 @@
    base-bytes
    (fileutils (and :with-test (>= 0.4.4)))
    (ounit2 (and :with-test (>= 2.0)))
+   (lwt :with-test)
    (odoc :with-doc))
   (depopts
     lwt))

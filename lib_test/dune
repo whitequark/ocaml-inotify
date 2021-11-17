@@ -5,5 +5,5 @@
 
 (test
   (name test_inotify_lwt)
-  (libraries ounit2 inotify.lwt fileutils )
+  (libraries ounit2 inotify.lwt fileutils)
   (modules test_inotify_lwt))
