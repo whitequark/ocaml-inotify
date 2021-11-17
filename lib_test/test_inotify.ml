@@ -18,7 +18,7 @@ let test_s_create_blocking ctxt =
   let watch = Inotify.add_watch inotify tmpdir [Inotify.S_Create] in
   () |> Thread.create (fun () ->
     Unix.sleep 1;
-    FileUtil.touch (Printf.sprintf "%s/test" tmpdir));
+    FileUtil.touch (Printf.sprintf "%s/test" tmpdir)) |> ignore;
   assert_equal [watch, [Inotify.Create], 0l, Some "test"] (Inotify.read inotify)
 
 (* Test that cookie works *)
