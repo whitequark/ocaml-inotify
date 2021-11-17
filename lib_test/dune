@@ -1,0 +1,9 @@
+(test
+  (name test_inotify)
+  (libraries ounit2 inotify fileutils threads)
+  (modules test_inotify))
+
+(test
+  (name test_inotify_lwt)
+  (libraries ounit2 inotify.lwt fileutils )
+  (modules test_inotify_lwt))
