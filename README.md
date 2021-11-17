@@ -15,9 +15,9 @@ The bindings are available via [OPAM](https://opam.ocaml.org):
 
 Alternatively, you can do it manually:
 
-    $ opam install lwt ounit fileutils
-    $ ./configure --enable-tests # --enable-lwt
-    $ make test install
+    # If you want to lwt_inotify
+    $ opam install lwt
+    $ opam install .
 
 Usage
 -----
