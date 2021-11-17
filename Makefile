@@ -1,7 +1,7 @@
 build:
-	dune build .
+	dune build -p inotify
 
-test:
+test: build
 	dune runtest
 
 doc:
