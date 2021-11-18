@@ -20,6 +20,7 @@
    (fileutils (and :with-test (>= 0.4.4)))
    (ounit2 (and :with-test (>= 2.0)))
    (lwt :with-test)
+   (ocaml (>= 4.03))
    (odoc :with-doc))
   (depopts
     lwt))
