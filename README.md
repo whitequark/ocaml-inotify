@@ -1,4 +1,4 @@
-OCaml Inotify bindings
+OCaml Inotify bindings [![build](https://github.com/whitequark/ocaml-inotify/actions/workflows/main.yml/badge.svg)](https://github.com/whitequark/ocaml-inotify/actions/workflows/main.yml)
 ======================
 
 This package contains bindings for Linux's filesystem monitoring
