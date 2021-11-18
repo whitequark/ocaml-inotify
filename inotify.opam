@@ -6,7 +6,7 @@ maintainer: ["whitequark <whitequark@whitequark.org>"]
 authors: ["whitequark <whitequark@whitequark.org>"]
 license: "LGPL-2.1"
 homepage: "https://github.com/whitequark/ocaml-inotify"
-doc: "http://whitequark.github.io/ocaml-inotify"
+doc: "https://whitequark.github.io/ocaml-inotify"
 bug-reports: "https://github.com/whitequark/ocaml-inotify/issues"
 depends: [
   "dune" {>= "2.9"}

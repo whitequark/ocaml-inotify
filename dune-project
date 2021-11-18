@@ -6,7 +6,7 @@
 (authors "whitequark <whitequark@whitequark.org>")
 (maintainers "whitequark <whitequark@whitequark.org>")
 (homepage "https://github.com/whitequark/ocaml-inotify")
-(documentation "http://whitequark.github.io/ocaml-inotify")
+(documentation "https://whitequark.github.io/ocaml-inotify")
 (bug_reports "https://github.com/whitequark/ocaml-inotify/issues")
 (source (github whitequark/ocaml-inotify))
 
