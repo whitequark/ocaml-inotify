@@ -1,5 +1,6 @@
 (lang dune 2.9)
 (generate_opam_files true)
+(version 2.4)
 
 (name inotify)
 (license LGPL-2.1)
