@@ -28,7 +28,6 @@
 #include <caml/callback.h>
 #include <caml/unixsupport.h>
 
-#include <features.h>
 #include <sys/inotify.h>
 
 static int inotify_flag_table[] = {
