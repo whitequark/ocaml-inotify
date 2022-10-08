@@ -12,3 +12,11 @@
   (flags (:standard -w -32-39))
   (libraries inotify lwt lwt.unix)
   (modules lwt_inotify))
+
+(library
+  (name eio_inotify)
+  (public_name inotify.eio)
+  (optional)
+  (flags (:standard -w -32-39))
+  (libraries inotify eio_linux eio.unix)
+  (modules eio_inotify))
