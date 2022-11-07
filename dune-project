@@ -3,7 +3,7 @@
 (version 2.4.1)
 
 (name inotify)
-(license LGPL-2.1)
+(license "LGPL-2.1-only WITH OCaml-LGPL-linking-exception")
 (authors "whitequark <whitequark@whitequark.org>")
 (maintainers "whitequark <whitequark@whitequark.org>")
 (homepage "https://github.com/whitequark/ocaml-inotify")

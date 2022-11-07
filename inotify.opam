@@ -5,7 +5,7 @@ synopsis: "Inotify bindings for OCaml"
 description: "Inotify bindings for OCaml"
 maintainer: ["whitequark <whitequark@whitequark.org>"]
 authors: ["whitequark <whitequark@whitequark.org>"]
-license: "LGPL-2.1"
+license: "LGPL-2.1-only WITH OCaml-LGPL-linking-exception"
 homepage: "https://github.com/whitequark/ocaml-inotify"
 doc: "https://whitequark.github.io/ocaml-inotify"
 bug-reports: "https://github.com/whitequark/ocaml-inotify/issues"
@@ -37,3 +37,4 @@ build: [
   ["dune" "install" "-p" name "--create-install-files" name]
 ]
 dev-repo: "git+https://github.com/whitequark/ocaml-inotify.git"
+available: os="linux"
