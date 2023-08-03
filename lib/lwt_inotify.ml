@@ -6,25 +6,30 @@ type t = {
   lwt_fd  : Lwt_unix.file_descr;
 }
 
-let create () =
-  try
+let create' () =
     let unix_fd = Inotify.create () in
-    return {
+    {
       queue   = Queue.create ();
       lwt_fd  = Lwt_unix.of_unix_file_descr unix_fd;
-      unix_fd; }
-  with exn ->
-    Lwt.fail exn
+      unix_fd;
+    }
+
+let create () = try return (create' ()) with exn -> Lwt.fail exn
+
+let add_watch' inotify path selector =
+    Inotify.add_watch inotify.unix_fd path selector
 
 let add_watch inotify path selector =
   try
-    return (Inotify.add_watch inotify.unix_fd path selector)
-  with exn ->
-    Lwt.fail exn
+    return (add_watch' inotify path selector)
+  with exn -> Lwt.fail exn
+
+let rm_watch' inotify wd =
+    Inotify.rm_watch inotify.unix_fd wd
 
 let rm_watch inotify wd =
   try
-    return (Inotify.rm_watch inotify.unix_fd wd)
+    return (rm_watch' inotify wd)
   with exn ->
     Lwt.fail exn
 
