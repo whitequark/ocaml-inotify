@@ -2,6 +2,7 @@
   (name inotify)
   (public_name inotify)
   (foreign_stubs (language c) (names inotify_stubs))
+  (libraries unix)
   (modules inotify))
 
 (library
