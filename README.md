@@ -15,8 +15,10 @@ The bindings are available via [OPAM](https://opam.ocaml.org):
 
 Alternatively, you can do it manually:
 
-    # If you want to lwt_inotify
+    # If you want to use lwt_inotify
     $ opam install lwt
+    # If you want to use eio_inotify
+    $ opam install eio
     $ opam install .
 
 Usage
@@ -42,7 +44,18 @@ Lwt_main.run (
   (* watch=1 cookie=0 events=CREATE "file" *)
 ```
 
-Note that Lwt-style interface returns events one-by-one, but the Unix-style one returns
+Eio-style interface (findlib package `inotify.eio`):
+
+``` ocaml
+Eio_main.run @@ fun _env ->
+  let inotify = Eio_inotify.create () in
+  let watch   = Eio_inotify.add_watch inotify "dir" [Inotify.S_Create] in
+  let event   = Eio_inotify.read inotify in
+  print_endline (Inotify.string_of_event event)
+  (* watch=1 cookie=0 events=CREATE "file" *)
+```
+
+Note that Lwt-style & Eio-style interfaces returns events one-by-one, but the Unix-style one returns
 them in small batches.
 
 Documentation

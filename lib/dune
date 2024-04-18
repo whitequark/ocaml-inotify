@@ -18,5 +18,5 @@
   (public_name inotify.eio)
   (optional)
   (flags (:standard -w -32-39))
-  (libraries inotify eio_linux eio.unix)
+  (libraries inotify eio.unix iomux)
   (modules eio_inotify))

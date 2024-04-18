@@ -24,4 +24,6 @@
    (ocaml (>= 4.03))
    (odoc :with-doc))
   (depopts
-    lwt))
+    lwt
+    eio
+    iomux))
