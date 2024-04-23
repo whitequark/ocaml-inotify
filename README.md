@@ -44,12 +44,12 @@ Lwt_main.run (
   (* watch=1 cookie=0 events=CREATE "file" *)
 ```
 
-Eio-style interface (findlib package `inotify.eio`):
+Eio-style interface (findlib package `inotify-eio`):
 
 ``` ocaml
 Eio_main.run @@ fun _env ->
   let inotify = Eio_inotify.create () in
-  let watch   = Eio_inotify.add_watch inotify "dir" [Inotify.S_Create] in
+  let _watch   = Eio_inotify.add_watch inotify "dir" [Inotify.S_Create] in
   let event   = Eio_inotify.read inotify in
   print_endline (Inotify.string_of_event event)
   (* watch=1 cookie=0 events=CREATE "file" *)

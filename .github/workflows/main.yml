@@ -17,15 +17,24 @@ jobs:
           - 4.03.x
           - 4.08.x
           - 4.12.x
+          - 5.1.x
+        include:
+          - opam-files: inotify.opam
+          - packages: inotify
+          - opam-files: "inotify.opam inotify-eio.opam"
+            ocaml-compiler: 5.1.x
+          - packages: "inotify inotify-eio"
+            ocaml-compiler: 5.1.x
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - uses: ocaml/setup-ocaml@v2
       with:
         ocaml-compiler: ${{ matrix.ocaml-compiler }}
+        opam-local-packages: ${{ matrix.opam-files }}
     - run: opam pin -n .
-    - run: opam depext -yt inotify
-    - run: opam install -t . --deps-only
+    - run: opam depext -yt ${{ matrix.packages }}
+    - run: opam install -t ${{ matrix.packages }} --deps-only
     - run: opam exec -- dune build
     - run: opam exec -- dune runtest
       if: ${{ matrix.os == 'ubuntu-latest'}}

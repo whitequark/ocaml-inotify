@@ -1,7 +1,7 @@
 
 ## Unreleased
 
-add an Eio backend
+add an Eio backend in a new inotify-eio package
 
 ## 2.5
 
