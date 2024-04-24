@@ -1,4 +1,4 @@
-(lang dune 2.9)
+(lang dune 3.9)
 (generate_opam_files true)
 (version 2.5)
 
@@ -25,3 +25,18 @@
    (odoc :with-doc))
   (depopts
     lwt))
+
+(package
+  (name inotify-eio)
+  (synopsis "Inotify backend for eio")
+  (description "Inotify backend for eio")
+  (depends
+   base-unix
+   base-bytes
+   (fileutils (and :with-test (>= 0.4.4)))
+   (ounit2 (and :with-test (>= 2.0)))
+   (ocaml (>= 5.0))
+   (odoc :with-doc)
+   eio
+   (eio_main :with-test)
+   iomux))

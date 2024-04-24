@@ -1,9 +1,15 @@
 (test
-  (name test_inotify)
-  (libraries ounit2 inotify fileutils threads)
-  (modules test_inotify))
+ (name test_inotify)
+ (libraries ounit2 inotify fileutils threads)
+ (modules test_inotify))
 
 (test
-  (name test_inotify_lwt)
-  (libraries ounit2 inotify.lwt fileutils)
-  (modules test_inotify_lwt))
+ (name test_inotify_lwt)
+ (libraries ounit2 inotify.lwt fileutils)
+ (modules test_inotify_lwt))
+
+(test
+ (name test_inotify_eio)
+ (build_if %{lib-available:eio_main})
+ (libraries ounit2 inotify-eio eio_main fileutils)
+ (modules test_inotify_eio))
