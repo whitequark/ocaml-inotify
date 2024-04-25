@@ -16,14 +16,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.opam
-          key: opam-ubuntu-latest-4.12.0
+          key: opam-ubuntu-latest-5.1.0
 
       - uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.12
+          ocaml-compiler: 5.1.0
 
       - run: opam pin -n .
-      - run: opam depext -yt inotify
+      - run: opam depext -yt inotify inotify-eio
       - run: opam install -d . --deps-only
       - run: opam install lwt
       - run: opam exec -- dune build @doc
