@@ -5,6 +5,7 @@
 
 (test
  (name test_inotify_lwt)
+ (build_if %{lib-available:lwt})
  (libraries ounit2 inotify.lwt fileutils)
  (modules test_inotify_lwt))
 
