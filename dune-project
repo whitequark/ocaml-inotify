@@ -33,6 +33,7 @@
   (depends
    base-unix
    base-bytes
+   (inotify (= :version))
    (fileutils (and :with-test (>= 0.4.4)))
    (ounit2 (and :with-test (>= 2.0)))
    (ocaml (>= 5.0))
