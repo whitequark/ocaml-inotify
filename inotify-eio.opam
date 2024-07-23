@@ -13,6 +13,7 @@ depends: [
   "dune" {>= "3.9"}
   "base-unix"
   "base-bytes"
+  "inotify" {= version}
   "fileutils" {with-test & >= "0.4.4"}
   "ounit2" {with-test & >= "2.0"}
   "ocaml" {>= "5.0"}
