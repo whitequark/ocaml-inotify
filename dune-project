@@ -40,4 +40,4 @@
    (odoc :with-doc)
    eio
    (eio_main :with-test)
-   iomux))
+   (iomux (>= 0.3))))
