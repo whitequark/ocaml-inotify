@@ -1,6 +1,6 @@
 (lang dune 3.9)
 (generate_opam_files true)
-(version 2.5)
+(version 2.6)
 
 (name inotify)
 (license "LGPL-2.1-only WITH OCaml-LGPL-linking-exception")
